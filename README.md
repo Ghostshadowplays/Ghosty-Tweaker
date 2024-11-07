@@ -44,16 +44,6 @@
 - **Revert Option:**  
   Users can undo the registry optimization to restore the default settings.
 
-## **User Interface (GUI):**
-- **Main Window:**  
-  Ghosty Winstall provides a sleek, modern interface using **CustomTkinter (CTk)**. The buttons are visually appealing, and the layout is clean, making it easy for users to perform system tweaks with minimal effort.
-
-- **Buttons for Each Feature:**  
-  Each major function (e.g., "Bypass Windows 11 Requirements" or "Disable Windows Defender") is mapped to a button, and clicking that button triggers the respective PowerShell script to execute the tweak.
-
-- **Status Label:**  
-  A status label provides feedback after each operation, showing either success or error messages to inform the user of the action’s outcome.
-
 ## **How Ghosty Winstall Works:**
 - **Admin Privileges:**  
   The tool first checks if it’s being run with administrator rights (required for system-level tweaks). If it’s not, it will automatically relaunch itself with elevated permissions.
@@ -80,21 +70,3 @@
 5. **Revert the Action (Optional):**  
    If you want to undo any tweaks, simply click the revert button for that feature.
 
-## **Example of the Tool's Interface:**
-
-### **Buttons:**
-- Bypass Windows 11 Requirements
-- Revert Windows 11 Requirements Bypass
-- Disable Windows Defender
-- Re-enable Windows Defender
-- Disable User Account Control (UAC)
-- Re-enable User Account Control (UAC)
-- Optimize Registry
-- Revert Registry Optimization
-
-### **Status Label:**
-- **Success Message:**  
-  "Windows 11 requirements bypassed."
-  
-- **Error Message:**  
-  "Failed to disable Windows Defender."
