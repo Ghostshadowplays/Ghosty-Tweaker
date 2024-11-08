@@ -1,72 +1,87 @@
-# **Ghosty Winstall: A Windows Optimization and Tweaker Tool**
+Ghosty Winstall - Windows Optimization Tool
+Ghosty Winstall is a Windows optimization tool designed to help you bypass Windows 11 system requirements, disable User Account Control (UAC), optimize the Windows registry, and perform other system tweaks. This tool is useful for users who want to fine-tune their Windows system for better performance or compatibility.
 
-**Ghosty Winstall** is a powerful tool designed to optimize and tweak your Windows system. Below are the key features and instructions on how to use the tool.
+Features
+Bypass Windows 11 Requirements
+Bypass system requirements such as TPM and CPU compatibility checks to install or upgrade to Windows 11 on unsupported hardware.
 
-## **Features:**
+Revert Windows 11 Requirements Bypass
+Undo the bypass changes and restore the original system checks for Windows 11 installation.
 
-### **Bypass Windows 11 Requirements:**
-- **What it does:**  
-  Allows users to bypass the strict hardware requirements for Windows 11, enabling them to upgrade even on unsupported devices.
-  
-- **How it works:**  
-  The tool adds a registry key that disables the checks for TPM 2.0 and Secure Boot during Windows 11 installation.
-  
-- **Revert Option:**  
-  If needed, users can easily revert this change by removing the registry entry.
+Disable User Account Control (UAC)
+Turn off UAC to stop security prompts from appearing when making system changes.
 
-### **Disable Windows Defender:**
-- **What it does:**  
-  Disables Windows Defender Antivirus, Windows' built-in security software.
-  
-- **How it works:**  
-  The tool stops the Defender service and changes its startup type to "Disabled."
-  
-- **Revert Option:**  
-  Users can restore Windows Defender by re-enabling the service with the click of a button.
+Re-enable User Account Control (UAC)
+Restore UAC to its default state, reactivating system security prompts.
 
-### **Disable User Account Control (UAC):**
-- **What it does:**  
-  Disables the User Account Control feature, which typically prompts users for confirmation before making system changes.
-  
-- **How it works:**  
-  The tool modifies the UAC registry key to disable the prompts.
-  
-- **Revert Option:**  
-  Users can restore UAC by re-enabling the registry key, which will reactivate the confirmation prompts.
+Optimize Windows Registry
+Tweak the registry to disable low disk space warnings for a smoother user experience.
 
-### **Optimize Registry:**
-- **What it does:**  
-  Disables certain registry checks like low disk space warnings, which can sometimes be intrusive.
-  
-- **How it works:**  
-  The tool tweaks the Windows registry to disable unnecessary checks and improve system performance.
-  
-- **Revert Option:**  
-  Users can undo the registry optimization to restore the default settings.
+Revert Registry Optimization
+Undo registry optimizations and return to default system settings.
 
-## **How Ghosty Winstall Works:**
-- **Admin Privileges:**  
-  The tool first checks if it’s being run with administrator rights (required for system-level tweaks). If it’s not, it will automatically relaunch itself with elevated permissions.
+Bypass All Windows 11 Requirements, Disable UAC, and Optimize Registry
+Apply all tweaks at once to quickly optimize your system.
 
-- **Executing Commands:**  
-  When a user clicks on a button for a specific tweak, Ghosty Winstall runs a PowerShell script that makes the necessary system changes.
+Revert All Changes
+Revert all system tweaks to their original state in one go.
 
-- **Reverting Changes:**  
-  For every action taken, Ghosty Winstall provides an option to revert the change. Users can easily undo any tweaks if they want to restore their system to its original state.
+Installation
+Download:
+Download the latest release of Ghosty Winstall from the Releases page.
 
-## **How to Use Ghosty Winstall:**
-1. **Open the Tool:**  
-   Launch Ghosty Winstall from your desktop or start menu.
+Run the Tool:
+Extract the ZIP file and run the executable as Administrator.
 
-2. **Select a Function:**  
-   Click on one of the available options (e.g., "Disable Windows Defender," "Optimize Registry").
+How to Use
+Bypass Windows 11 Requirements
 
-3. **Admin Prompt:**  
-   If Ghosty Winstall is not running as administrator, it will ask you for elevated privileges.
+Click the "Bypass Windows 11 Requirements" button.
+Confirm the action when prompted.
+The tool will bypass Windows 11 system requirements.
+Revert Windows 11 Requirements Bypass
 
-4. **Wait for the Process:**  
-   After clicking a button, wait for the operation to complete. The status label will show a message indicating whether the action succeeded or failed.
+Click "Revert Windows 11 Requirements Bypass" to restore the original checks.
+Confirm the action when prompted.
+Disable User Account Control (UAC)
 
-5. **Revert the Action (Optional):**  
-   If you want to undo any tweaks, simply click the revert button for that feature.
+Click "Disable User Account Control" to turn off UAC.
+Confirm the action when prompted.
+Re-enable User Account Control (UAC)
 
+Click "Re-enable User Account Control" to restore UAC.
+Confirm the action when prompted.
+Optimize Registry
+
+Click "Optimize Registry" to disable low disk space warnings.
+Confirm the action when prompted.
+Revert Registry Optimization
+
+Click "Revert Registry Optimization" to undo the changes.
+Confirm the action when prompted.
+Bypass All Windows 11 Requirements, Disable UAC, and Optimize Registry
+
+Click "Bypass All Windows 11 Requirements" to apply all changes.
+Confirm the action when prompted.
+Revert All Changes
+
+Click "Revert All Changes" to undo all actions and restore defaults.
+Confirm the action when prompted.
+Logging and Errors
+All actions are logged in a log.txt file.
+In case of an error, the Status Label will display an error message with details.
+If the action is successful, the Status Label will show a confirmation message.
+Important Notes
+Security Risk:
+Disabling UAC or bypassing system requirements can compromise your system's security. Only use these features if you understand the risks.
+
+Backup Your System:
+It's recommended to create a backup before making significant changes to your system.
+
+License
+Ghosty Winstall is licensed under the MIT License.
+
+Contributing
+Feel free to contribute to Ghosty Winstall by opening an issue or submitting a pull request on GitHub.
+
+Let me know if you need any more changes!
