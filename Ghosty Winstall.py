@@ -3,11 +3,9 @@ import subprocess
 import ctypes
 import sys
 from PIL import Image, ImageTk
-import requests
-from io import BytesIO
-import os
-import tempfile
 from tkinter import messagebox
+from PIL import Image, ImageTk
+import os
 
 def is_admin():
     try:
@@ -29,9 +27,6 @@ def log_to_file(message):
     except Exception as e:
         print(f"Logging error: {e}")
 
-import subprocess
-import tkinter as tk
-from tkinter import messagebox
 
 def run_powershell_command(command, success_msg, error_msg, button, status_label):
     if not is_admin():
@@ -41,11 +36,11 @@ def run_powershell_command(command, success_msg, error_msg, button, status_label
     try:
         result = subprocess.run(['powershell', '-Command', command], capture_output=True, text=True)
         if result.returncode == 0:
-            status_label.configure(text=success_msg) 
+            status_label.configure(text=success_msg)  
         else:
             status_label.configure(text=error_msg + " " + result.stderr) 
     except Exception as e:
-        status_label.configure(text="Error: " + str(e)) 
+        status_label.configure(text="Error: " + str(e))  
 
 def bypass_windows_requirements():
     if messagebox.askyesno("Confirmation", "Are you sure you want to bypass Windows 11 requirements? This could make your system unstable."):
@@ -72,23 +67,34 @@ def revert_windows_requirements():
         messagebox.showinfo("Cancelled", "Revert operation has been cancelled.")
 
 def disable_uac():
-    if messagebox.askyesno("Confirmation", "Are you sure you want to disable User Account Control (UAC)? Your system will be less secure."):
-        command = '''
-        Set-ItemProperty -Path "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Name "EnableLUA" -Value 0
-        '''
-        run_powershell_command(command, "User Account Control disabled.", "Failed to disable User Account Control.", uac_button, status_label)
+    
+    warning_message = (
+        "⚠️ WARNING: Disabling User Account Control (UAC) can weaken your system's security. "
+        "This action is recommended only for advanced users who fully understand the security risks."
+    )
+    user_response = messagebox.askyesno("Security Warning", warning_message)
+    
+    if user_response:
+        
+        if messagebox.askyesno("Confirmation", "Are you absolutely sure you want to disable User Account Control (UAC)?"):
+            
+            command = '''
+            Set-ItemProperty -Path "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Name "EnableLUA" -Value 0
+            '''
+            run_powershell_command(command, "User Account Control disabled.", "Failed to disable User Account Control.", uac_button, status_label)
 
-        
-        check_command = '''
-        $uacStatus = Get-ItemProperty -Path "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Name "EnableLUA"
-        if ($uacStatus.EnableLUA -eq 0) {
-            Write-Host "UAC is disabled."
-        } else {
-            Write-Host "Failed to disable UAC."
-        }
-        '''
-        
-        run_powershell_command(check_command, "UAC is disabled.", "Failed to disable UAC.", uac_button, status_label)
+            
+            check_command = '''
+            $uacStatus = Get-ItemProperty -Path "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Name "EnableLUA"
+            if ($uacStatus.EnableLUA -eq 0) {
+                Write-Host "UAC is disabled."
+            } else {
+                Write-Host "Failed to disable UAC."
+            }
+            '''
+            run_powershell_command(check_command, "UAC is disabled.", "Failed to disable UAC.", uac_button, status_label)
+        else:
+            messagebox.showinfo("Cancelled", "Disable UAC operation has been cancelled.")
     else:
         messagebox.showinfo("Cancelled", "Disable UAC operation has been cancelled.")
 
@@ -157,13 +163,13 @@ def bypass_all_requirements():
 
 def revert_all_changes():
     if messagebox.askyesno("Confirmation", "Are you sure you want to revert all changes? This will restore the system settings to their defaults."):
-        
+       
         revert_bypass_command = '''
         Remove-ItemProperty -Path "HKLM:\\SYSTEM\\Setup\\MoSetup" -Name "AllowUpgradesWithUnsupportedTPMOrCPU" -Force
         '''
         run_powershell_command(revert_bypass_command, "Windows 11 requirements reverted.", "Failed to revert Windows 11 requirements.", revert_bypass_button, status_label)
 
-        
+       
         revert_uac_command = '''
         Set-ItemProperty -Path "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Name "EnableLUA" -Value 1
         '''
@@ -178,36 +184,35 @@ def revert_all_changes():
     else:
         messagebox.showinfo("Cancelled", "Revert operation has been cancelled.")
 
+current_dir = os.path.dirname(__file__)
 
-def create_label_with_image(app, text, logo_url):
-    try:
-        response = requests.get(logo_url, timeout=10) 
-        response.raise_for_status()
-        img_data = response.content
-        image = Image.open(BytesIO(img_data))
-        image = image.resize((100, 100))
-        logo = ImageTk.PhotoImage(image)
+def create_label_with_image(app, text, image_name, row, column, text_color="#993cda"):
+    
+    current_dir = os.path.dirname(__file__)
+    image_path = os.path.join(current_dir, "images", image_name)
+    if not os.path.isfile(image_path):
+        print(f"Error: Image {image_name} not found at {image_path}.")
+        return None
 
-        label = ctk.CTkLabel(app, text=text, image=logo, compound="left", font=("Arial", 18))
-        label.image = logo
-        label.pack(pady=20)
-    except requests.exceptions.RequestException as e:
-        print(f"Error loading image: {e}")
-        label = ctk.CTkLabel(app, text=text, font=("Arial", 18))
-        label.pack(pady=20)
+    image = Image.open(image_path)
+    image = image.resize((85, 85)) 
+    logo = ImageTk.PhotoImage(image)
+
+    label = ctk.CTkLabel(app, text=text, font=("Helvetica", 25, "bold"),
+                         image=logo, text_color=text_color, compound="left")
+    
+    
+    label.pack()
+    label.image = logo
 
 
 app = ctk.CTk()
 app.geometry("400x590")
-app.title("WinTweaker - Windows Optimization Tool")
+app.title("Ghosty Winstall - Windows Optimization Tool")
 app.resizable(False, False)
 
 
 elevate_script()
-
-
-logo_url = "https://raw.githubusercontent.com/Ghostshadowplays/Ghostyware-Logo/main/GhostywareLogo.png"
-create_label_with_image(app, "Ghosty Winstall", logo_url)
 
 
 status_label = ctk.CTkLabel(app, text="")
@@ -219,6 +224,8 @@ button_params = {
     "border_color": "#e7e7e7",
     "border_width": 2
 }
+
+create_label_with_image(app, "Ghosty Winstall", "image_1.png", 0, 0)
 
 
 bypass_frame = ctk.CTkFrame(app)
@@ -245,9 +252,9 @@ revert_optimize_button.pack(pady=5)
 all_frame = ctk.CTkFrame(app)
 all_frame.pack(pady=10)
 bypass_all_button = ctk.CTkButton(all_frame, text="Bypass All Windows 11 Requirements", command=bypass_all_requirements, **button_params)
-bypass_all_button.pack(pady=10)
+bypass_all_button.pack(pady=5)
 revert_all_button = ctk.CTkButton(all_frame, text="Revert All Changes", command=revert_all_changes, **button_params)
-revert_all_button.pack(pady=10)
+revert_all_button.pack(pady=5)
 
 
 app.mainloop()
