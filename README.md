@@ -3,7 +3,6 @@
 Follow these steps to get started with **Ghosty Winstall**:
 
 1. **Download and Extract**:
-   - Go to the [releases page](https://github.com/your-repository/releases) on GitHub.
    - Download the latest version of **Ghosty Winstall** ZIP file for Windows.
    - Extract the contents to a folder of your choice.
 
